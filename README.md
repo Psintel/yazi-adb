@@ -1,3 +1,18 @@
+# Fork updates
+## What broke on Yazi 26.9.x
+- `ui.Table` was removed → the file listing failed to render
+- `Border`'s `type` field was replaced by `Border:set { as = ... }`
+- `cx.active.selected` layout changed → pushed paths resolved to garbage ("cannot stat '1'")
+
+## Changes
+- Rewrote the renderers on `ui.Text`/`ui.Line`/`ui.Span`
+  (manual scrolling, cursor highlight, status in the border title)
+- Migrated `Border` to `:set { as = ... }`, added the title to both views
+- `P` now pushes the native Yazi selection (falls back to the hovered
+  file), with per-file progress and error reporting
+
+Tested on Yazi 26.9.1 (Linux) against a Xiaomi/HyperOS device.
+
 # yazi-adb
 
 An Android device (`adb`) explorer plugin for [Yazi](https://yazi-rs.github.io/).
@@ -67,7 +82,7 @@ immediately. With more than one, pick a device first.
 | <kbd>l</kbd> / <kbd>Enter</kbd> | <kbd>→</kbd> | Enter directory (device list: pick device) |
 | <kbd>h</kbd> | <kbd>←</kbd> / <kbd>Backspace</kbd> | Parent directory (bubbles up to device list at `/`, if more than one device) |
 | <kbd>p</kbd> | - | Pull the hovered remote entry into the active Yazi tab's current directory |
-| <kbd>P</kbd> | - | Push the file/directory hovered in the active Yazi tab into the current remote directory |
+| <kbd>P</kbd> | - | Push the file/directory selected in Yazi tab into the current remote directory |
 | <kbd>d</kbd> | - | Delete the hovered remote entry (`adb shell rm -rf`, after confirmation) |
 | <kbd>r</kbd> | - | Request root (`adb -s <id> root`) and reload |
 | <kbd>R</kbd> | - | Refresh the current listing |
