@@ -111,7 +111,7 @@ end
 -- `err_string` is the raw stderr text so callers can pattern-match it (e.g.
 -- `is_perm_denied`) to decide whether to offer a root retry.
 function M.list(device, path)
-	local output, err = run_shell(device, "ls -la -- " .. M.quote(path))
+	local output, err = run_shell(device, "ls -la -- " .. M.quote(path .. "/"))
 	if not output then
 		return nil, tostring(err)
 	end
